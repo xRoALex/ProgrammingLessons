@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class FirstTeleOP extends LinearOpMode {
     private Robot robot;
 
+    private boolean isLeftPressed = false;
+    private boolean isRightPressed = false;
+
     @Override
     public void runOpMode() {
         robot = new Robot(hardwareMap);
@@ -20,10 +23,37 @@ public class FirstTeleOP extends LinearOpMode {
             double zValue = gamepad1.right_trigger - gamepad1.left_trigger;
 
             robot.setMotorPowers(
-                    yValue + xValue - zValue,
-                    yValue - xValue + zValue,
                     yValue + xValue + zValue,
-                    yValue- xValue - zValue);
+                    yValue - xValue - zValue,
+                    yValue + xValue - zValue,
+                    yValue- xValue + zValue);
+
+            if(gamepad1.dpad_left && isLeftPressed == false){
+                robot.setServoPosition(robot.getServoPosition() - 0.01f);
+                isLeftPressed = true;
+            } else if(gamepad1.dpad_right && isRightPressed == false){
+                robot.setServoPosition(robot.getServoPosition() + 0.01f);
+                isRightPressed = true;
+            }
+
+            if(gamepad1.dpad_left == false) {
+                isLeftPressed = false;
+            }
+
+            if(gamepad1.dpad_right == false) {
+                isRightPressed = false;
+            }
+
+            if(gamepad1.a) {
+                robot.setServoLeft();
+            } else if(gamepad1.b) {
+                robot.setServoRight();
+            }
+
+            telemetry.addData("Servo Position: ", robot.getServoPosition());
+
+            telemetry.addData("isLeftPressed: ", isLeftPressed);
+            telemetry.addData("isRightPressed: ", isRightPressed);
 
             telemetry.addData("xValue: ", xValue);
             telemetry.addData("yValue: ", yValue);
