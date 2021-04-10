@@ -13,7 +13,7 @@ public class FirstTeleOP extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot = new Robot(hardwareMap);
+        robot = new Robot(hardwareMap, Robot.DRIVING_MODE.TELEOP);
 
         waitForStart();
 
@@ -28,19 +28,19 @@ public class FirstTeleOP extends LinearOpMode {
                     yValue + xValue - zValue,
                     yValue- xValue + zValue);
 
-            if(gamepad1.dpad_left && isLeftPressed == false){
+            if(gamepad1.dpad_left && !isLeftPressed ){
                 robot.setServoPosition(robot.getServoPosition() - 0.01f);
                 isLeftPressed = true;
-            } else if(gamepad1.dpad_right && isRightPressed == false){
+            } else if(gamepad1.dpad_right && !isRightPressed){
                 robot.setServoPosition(robot.getServoPosition() + 0.01f);
                 isRightPressed = true;
             }
 
-            if(gamepad1.dpad_left == false) {
+            if(!gamepad1.dpad_left) {
                 isLeftPressed = false;
             }
 
-            if(gamepad1.dpad_right == false) {
+            if(!gamepad1.dpad_right) {
                 isRightPressed = false;
             }
 
@@ -57,7 +57,13 @@ public class FirstTeleOP extends LinearOpMode {
 
             telemetry.addData("xValue: ", xValue);
             telemetry.addData("yValue: ", yValue);
-            telemetry.addData("zValue; ", zValue);
+            telemetry.addData("zValue: ", zValue);
+
+            telemetry.addData("frontRight: ",robot.getFrontRightPosition());
+            telemetry.addData("frontLeft: ", robot.getFrontLeftPosition());
+            telemetry.addData("backRight: ",robot.getBackRightPosition());
+            telemetry.addData("backLeft: ", robot.getBackLeftPosition());
+
             telemetry.update();
         }
     }
