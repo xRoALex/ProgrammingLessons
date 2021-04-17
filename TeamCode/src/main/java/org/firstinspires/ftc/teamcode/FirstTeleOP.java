@@ -26,7 +26,7 @@ public class FirstTeleOP extends LinearOpMode {
                     yValue + xValue + zValue,
                     yValue - xValue - zValue,
                     yValue + xValue - zValue,
-                    yValue- xValue + zValue);
+                    yValue - xValue + zValue);
 
             if(gamepad1.dpad_left && !isLeftPressed ){
                 robot.setServoPosition(robot.getServoPosition() - 0.01f);

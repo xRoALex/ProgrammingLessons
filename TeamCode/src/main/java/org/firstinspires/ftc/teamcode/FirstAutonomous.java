@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 @Autonomous
 public class FirstAutonomous extends LinearOpMode {
 
@@ -15,5 +17,8 @@ public class FirstAutonomous extends LinearOpMode {
         waitForStart();
 
         robot.moveForward(100);
+
+        robot.moveForward(-100);
+
     }
 }
